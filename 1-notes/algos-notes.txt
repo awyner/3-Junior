@@ -1,0 +1,19 @@
+9/2
+
+proof by induction - review
+	prove base case
+	prove for some variable k + 1
+
+Triangular numbers:
+	base case: observe 1 = (1(1+1))/2
+	Let k>=1 be any integer
+	Assume 1 + 2 + 3 + ... + k = (k(k+1))/2  # inductive hypothesis
+	# Need to show 1 + 2 + 3 + ... + k + k + 1 = ((k+1)(k+2))/2 using assumption from previous line
+	Using the inductive hypothesis, we know that
+	1 + 2 + ... + k + k + 1 = (k(k+1))/2 + k + 1
+													= (k(k+1))/2 2(k+1)/2
+													= (k(k+1) + 2(k+1))/2
+													= ((k+1)(k+2))/2
+	By the principle of mathematical induction, 1 + 2 + ... + n = n(n+1)/2 for all n>=1.
+
+	

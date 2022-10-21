@@ -1,0 +1,10 @@
+Passwords:
+A: PP2QavegMMC0
+B: zQ0kFHpr8JkG
+C: F06OnADlE8u1
+
+hash of original (Project-2.docx): e2fee4fd89bc5b8f8bdfeb92c51d1e7fb6fb5f82260066c60a46d1fc015aa93e 
+hash of hidden file (Project-2-no-screenshots.rar): 018e7b87d19c382e841f11f0d0ab9a45fb26245b264c0763bf59eb0362b733c7 
+
+Note: The original file with screenshots was way to large to hide with steganograpy, so I created a copy and removed all images from it.
+The original file, titled Project-2.docx, contains all screenshots and answers to questions.

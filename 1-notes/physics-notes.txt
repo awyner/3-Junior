@@ -1,0 +1,11 @@
+a significant aspect to science is the reporting of your findings
+organizing the information, explain and analyze what it means and why its relevant
+describing motion
+  position - the physical location of an object, made relative to some reference point
+  need to have some standard for comparison
+displacement - change in position - final-initial
+  measurement unit with some direction
+  independent of origin
+vectors - physical quantities that are completely described by a number/unit and a direction
+scalar - physical quantities that are completely defined by a number and a unit
+Newton = kg * m/s^2

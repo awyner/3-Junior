@@ -1,0 +1,73 @@
+Intro
+  CIA - confidentiality (access restriction), integrity (correct and unaltered information), availability
+  information security - focus more on protecting data/info, more focused
+  cyber security - more broad focus, protect data, integrity of systems, detecting/responding/preventing attacks, risk management and oversight
+  APT - active persistent threat
+  cybersecurity posture - approach, philosophy or strategy regarding security
+    initial baseline configuration
+    continuous security monitoring
+    emergency response plan
+Malware/viruses
+  types of virus - file-based and file-less
+    file-based - malicious code that is attached to a file that reproduces itself on the same computer without any human intervention
+    file-less - can reside on windows registry or attach to process that starts on boot and loads into memory
+  computer virus - malicious code that reproduces itself on same computer
+  program virus - infects program
+  viruses do not spread by themselves, need user interaction to spread
+  worm - malicious program that self replicates and spreads over network automatically
+  bot - computer infected with malware that allows malicious actor to remotely control computer and launch attacks, scans, etc.
+  malware can try to detect monitoring tools, debuggers, and virtual machines in order to evade them
+  swiss cheese infection - viruses inject themselves into executable code, scramble itself, decrypt in segments
+  mutation
+    oligomorphic virus changes internal code to one of a set of predefine mutations whenever executed
+    polymorphic virus can rewrite its own code and appear different each time it is executed
+      achieve countless number of variations using obfuscation methods ,encryption, data appending
+      examples: Wannacry, cryptoLocker, Virlock
+  metamorphic virus
+    completely changes from its original form when executed
+    most infections virus
+    no encryption key
+    no part of the code remains constant
+    never returns to original form
+    no specific signature - very difficult to detect with AV
+    example: Zmist
+Web-apps
+  XSS - website accepts user inut wihtout validating/filtering and uses that input in a response can be exploited
+    Cross site request forgery (CSRF) - take a token from website A that victim is authenticated to, then the attacker gets victim to send that token/credentials to the attacker, then attacker makes request with victim's credentials
+    Server side request forgery (SSRF) - persistent, sits on server and executes malicious requests using credentials of users that authenticate to server/website
+  XSS Activity
+    Task 1
+      How many headers? 4 - General, request, response, entity
+    Task 2
+      How many headers - 3 x headers: x-frame-options, x-xss-protection, x-content-type-options
+      Content-Security-Policy: allows whitelisting of approved sources of content, ie javascript, css
+      X-Content-Type-Options : prevents chrome and internet explorer from attempting to MIME-sniff content-type of a response to one other than the MIME type declared by a server
+      X-Frame-Options: protects against clickjacking attacks by preventing other sites from displaying your site in an iframe
+      X-XSS-Protection: enables/disables/blocks malicious requests using a browser's built-in XSS protection
+      Strict-Transport-Security: Forces browsers to use https regardless of whether they enter http or https
+Attacks on software
+  memory vulnerabilities - buffer overflow, integer overflow
+  improper exception handling
+KRI - key risk indicators, metrics of upper and lower bounds of specific indicators of normal network activity
+chain of trust - check each element used in each step of the boot process has not been modified
+HIDS - host intrusion detection system, can detect attack has occured
+HIPS - host intrusion prevention system, monitors endpoint activity to immediately block a malicious attack following specific rules
+EDR - endpoint detection and response, can aggregate data from multiple endpoints to a centralized database
+mobile device risks
+  tethering - mobile device w/ active internet connection can be used to hsare that connection with other mobile devices through BT or wifi
+  usb on the go
+  malicious usb cable
+  rogue aps/public hotspots
+cryptography - scrambling information so it cannot be read
+steganography - hides existence of data rather than scrambling it
+  divide data and hide in unused portions of the file
+  may hide data in file header fields or between sections of metadata
+stream cipher
+block cipher - breaks plaintext into blocks, encrypts first block, merges with next block and encrypts next block until all data is encrypted
+  DES, Triple DES, AES, Blowfish
+three types of cryptographic algorithms
+  hash
+  symmetric algorithms - same key is used to encrypt and decrpt file (DES, 3DES, AES, RC, Blowfish)
+  asymmetric algorithms - private key/public key pair
+hierarchal trust model - assigns a single herarchy with one master CA call ed root, root signs all digital CAs with a single key
+distributed trust model - multiple CAs sign digital certificates, eliminates limitations of hierarchal trust model
