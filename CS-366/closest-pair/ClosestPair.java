@@ -10,12 +10,15 @@ public class ClosestPair
 
 		Point[] p = new Point[n];
 		fillPoints(p);
-//		printPoints(p);
+		printPoints(p);
+//		System.out.println(eucDistance(p[0], p[1]));
 //		call on bruteForce and report results
+		bruteForce(p);
 
 		mergeSort(p, 0, p.length-1);
 //		call on rec_cl_pair and report results
 //		printPoints(p);
+		in.close();
 	}
 
 	public static void fillPoints(Point[] p)
@@ -37,14 +40,34 @@ public class ClosestPair
 		}
 	}
 
-	public static double bruteForce(Point[] p)
+	public static void bruteForce(Point[] p)
 	{
-
+		long startTime = System.nanoTime();
+		Point[] min = new Point[2];
+		double currDist;
+		double minDist = eucDistance(p[0], p[1]);
+		for (int x = 0; x < p.length; x ++)
+		{
+			for (int y = 1; y < p.length; y ++)
+			{
+				currDist = eucDistance(p[x], p[y]);
+				System.out.println(minDist + " | " + currDist);
+				if (Math.min(currDist, minDist) != minDist && x != y)
+				{
+					minDist = currDist;
+					min[0] = p[x];
+					min[1] = p[y];
+				}
+			}
+		}
+		long endTime = System.nanoTime();
+		printResults(min, minDist, startTime, endTime);
 	}
 
+	// TODO
 	public static double rec_cl_pair(Point[] p, int i, int j)
 	{
-
+		return 0;
 	}
 
 	public static void mergeSort(Point[] p, int left, int right)
@@ -103,6 +126,18 @@ public class ClosestPair
 		}
 	}
 
+	public static double eucDistance(Point p, Point q)
+	{
+		return Math.sqrt(Math.pow(p.x-q.x, 2) + Math.pow(p.y-q.y, 2));
+	}
+
+	private static void printResults(Point[] min, double minDist, long startTime, long endTime) {
+		System.out.print("Points with minimum distance: ");
+		System.out.print("(" + min[0].x + ", " + min[0].y + "), ");
+		System.out.println("(" + min[1].x + ", " + min[1].y + ") ");
+		System.out.println("Distance: " + minDist);
+		System.out.println("Elapsed time: " + (endTime-startTime) + " nanoseconds");
+	}
 
 	public static class Point
 	{
