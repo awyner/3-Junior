@@ -1,3 +1,13 @@
+/**
+ * Author: Alex Wyner
+ * Due Date: 10/28/22
+ * Title: Programming Assignment 1: Closest Pair
+ * 
+ * Description: Using a bruteforce implementation and a Divide-and-Conquer 
+ * recursive implementation, calculate the closest pair of points in an array 
+ * of 2-dimensional points, comparing the runtimes of each implementation.
+ */
+
 import java.util.*;
 
 public class ClosestPair
@@ -10,8 +20,7 @@ public class ClosestPair
 
 		Point[] p = new Point[n];
 		fillPoints(p);
-		printPoints(p);
-//		System.out.println(eucDistance(p[0], p[1]));
+//		printPoints(p);
 //		call on bruteForce and report results
 		bruteForce(p);
 
@@ -21,6 +30,8 @@ public class ClosestPair
 		in.close();
 	}
 
+	// Method to populate array of type Point with random doubles between 0 and 
+	// 1000, with the number of values generated given by the user 
 	public static void fillPoints(Point[] p)
 	{
 		Random generator = new Random();
@@ -32,6 +43,7 @@ public class ClosestPair
 		}
 	}
 
+	// Print x and y values of all points in array of type Point
 	public static void printPoints(Point[] p)
 	{
 		for (int i = 0; i < p.length; i++)
@@ -40,28 +52,41 @@ public class ClosestPair
 		}
 	}
 
+	// Bruteforce implementation to calculate closest points in array Point objects
 	public static void bruteForce(Point[] p)
 	{
 		long startTime = System.nanoTime();
-		Point[] min = new Point[2];
+
 		double currDist;
+		Point[] min = new Point[2];
 		double minDist = eucDistance(p[0], p[1]);
+
+		// Loop through each element in array p
 		for (int x = 0; x < p.length; x ++)
 		{
-			for (int y = 1; y < p.length; y ++)
+			// Loop through each element in array p
+			for (int y = 0; y < p.length; y ++)
 			{
-				currDist = eucDistance(p[x], p[y]);
-				System.out.println(minDist + " | " + currDist);
-				if (Math.min(currDist, minDist) != minDist && x != y)
+				// Check that we are not comparing the same point to itself
+				if (x != y)
 				{
-					minDist = currDist;
-					min[0] = p[x];
-					min[1] = p[y];
+					// Compare distance between two points at index x and y of p
+					currDist = eucDistance(p[x], p[y]);
+					if (currDist < minDist)
+					{
+						minDist = currDist;
+						min[0] = p[x];
+						min[1] = p[y];
+					}
 				}
 			}
 		}
 		long endTime = System.nanoTime();
-		printResults(min, minDist, startTime, endTime);
+		System.out.print("Points with minimum distance: ");
+		System.out.print("(" + min[0].x + ", " + min[0].y + "), ");
+		System.out.println("(" + min[1].x + ", " + min[1].y + ") ");
+		System.out.println("Distance: " + minDist);
+		System.out.println("Elapsed time: " + (endTime-startTime) + " nanoseconds");	
 	}
 
 	// TODO
@@ -126,19 +151,13 @@ public class ClosestPair
 		}
 	}
 
+	// Helper method to calculate Euclidean distance between two points
 	public static double eucDistance(Point p, Point q)
 	{
 		return Math.sqrt(Math.pow(p.x-q.x, 2) + Math.pow(p.y-q.y, 2));
 	}
 
-	private static void printResults(Point[] min, double minDist, long startTime, long endTime) {
-		System.out.print("Points with minimum distance: ");
-		System.out.print("(" + min[0].x + ", " + min[0].y + "), ");
-		System.out.println("(" + min[1].x + ", " + min[1].y + ") ");
-		System.out.println("Distance: " + minDist);
-		System.out.println("Elapsed time: " + (endTime-startTime) + " nanoseconds");
-	}
-
+	// Implementation to represent point on 2-dimensional plane
 	public static class Point
 	{
 		private double x;
