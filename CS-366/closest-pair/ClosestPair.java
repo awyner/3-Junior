@@ -22,10 +22,11 @@ public class ClosestPair
 		fillPoints(p);
 //		printPoints(p);
 //		call on bruteForce and report results
-		bruteForce(p);
+//		bruteForce(p);
 
 		mergeSort(p, 0, p.length-1);
 //		call on rec_cl_pair and report results
+		rec_cl_pair(p, 0, p.length-1);
 //		printPoints(p);
 		in.close();
 	}
@@ -89,10 +90,42 @@ public class ClosestPair
 		System.out.println("Elapsed time: " + (endTime-startTime) + " nanoseconds");	
 	}
 
-	// TODO
 	public static double rec_cl_pair(Point[] p, int i, int j)
 	{
+		i=0;
+		j=2;
+		if ((j - i) < 3) 		 // at most 3 points in p[i..j]
+		{
+			double delta;
+			printPoints(p);
+			p = sort_by_y(p, i, j);  // re-order p[i..j] by y-coordinate
+			System.out.println("##########");
+			printPoints(p);
+			// delta = eucDistance(p[i], p[i+1]);
+			/* if (j - i == 1)      // there are only two points
+			return delta
+			else
+			return min(delta, distance(p[i+1], p[i+2]), distance(p[i], p[i+2])) */
+		}
+		   
 		return 0;
+	}
+
+	private static Point[] sort_by_y(Point[] p, int i, int j) 
+	{
+		for (int y=0;y<3;y++)
+		{
+			for (int x=i; x<j; x++)
+			{
+				if (p[x].y > p[x+1].y)
+				{
+					Point temp = p[x];
+					p[x] = p[x+1];
+					p[x+1] = temp;
+				}
+			}
+		}
+		return p;
 	}
 
 	public static void mergeSort(Point[] p, int left, int right)
