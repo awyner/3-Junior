@@ -22,11 +22,14 @@ public class ClosestPair
 		fillPoints(p);
 //		printPoints(p);
 //		call on bruteForce and report results
-//		bruteForce(p);
+		bruteForce(p);
 
 		mergeSort(p, 0, p.length-1);
 //		call on rec_cl_pair and report results
-		rec_cl_pair(p, 0, p.length-1);
+		long startTime=System.nanoTime();
+		System.out.println("\nDivide and Conquer: \nMinimum Distance: " + rec_cl_pair(p, 0, p.length-1));
+		long endTime=System.nanoTime();
+		System.out.println("Elapsed time: " + (endTime-startTime) + " nanoseconds");
 //		printPoints(p);
 		in.close();
 	}
@@ -83,10 +86,10 @@ public class ClosestPair
 			}
 		}
 		long endTime = System.nanoTime();
-		System.out.print("Points with minimum distance: ");
+		System.out.print("\nBrute force:\nPoints with minimum distance: ");
 		System.out.print("(" + min[0].x + ", " + min[0].y + "), ");
 		System.out.println("(" + min[1].x + ", " + min[1].y + ") ");
-		System.out.println("Distance: " + minDist);
+		System.out.println("Minimum Distance: " + minDist);
 		System.out.println("Elapsed time: " + (endTime-startTime) + " nanoseconds");	
 	}
 
@@ -116,7 +119,7 @@ public class ClosestPair
 		deltaL = rec_cl_pair(p, i, m);		// deltaL = min distance of left half
 		deltaR = rec_cl_pair(p, m+1, j); 	// deltaR = min distance of right half
 		delta = Math.min(deltaL, deltaR); 	// smallest distance of the two halves
-		p = merge_by_y(p, i, m, j); 		// merge so that p[i..j] is sorted by y
+		merge_by_y(p, i, m, j); 		// merge so that p[i..j] is sorted by y
 		
 		// Of points in p[i..j], find points in vertical strip of width 2*delta,
  		// centered at line, store in temp array v, and t = number of pts
@@ -125,7 +128,7 @@ public class ClosestPair
 		{
 			if (p[k].x > line - delta && p[k].x < line + delta)
 			{
-				t = t + 1;
+	//			t = t + 1;
 				v[t] = p[k];
 			}
 	 	}
@@ -141,11 +144,6 @@ public class ClosestPair
 		return delta;
 	}
 	
-	private static Point[] merge_by_y(Point[] p, int i, int m, int j)
-	{
-		
-		return p;
-	}
 
 	private static Point[] sort_by_y(Point[] p, int i, int j) 
 	{
