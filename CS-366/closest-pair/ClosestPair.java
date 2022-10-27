@@ -66,16 +66,16 @@ public class ClosestPair
 		double minDist = eucDistance(p[0], p[1]);
 
 		// Loop through each element in array p
-		for (int x = 0; x < p.length; x ++)
+		for (int x = 0; x < p.length; x ++)   // O(n)
 		{
 			// Loop through each element in array p
-			for (int y = 0; y < p.length; y ++)
+			for (int y = 0; y < p.length; y ++) // O(n^2)
 			{
 				// Check that we are not comparing the same point to itself
-				if (x != y)
+				if (x != y)      
 				{
 					// Compare distance between two points at index x and y of p
-					currDist = eucDistance(p[x], p[y]);
+					currDist = eucDistance(p[x], p[y]);  // O(1)
 					if (currDist < minDist)
 					{
 						minDist = currDist;
@@ -144,7 +144,6 @@ public class ClosestPair
 		return delta;
 	}
 	
-
 	private static Point[] sort_by_y(Point[] p, int i, int j) 
 	{
 		for (int y=0;y<3;y++)
