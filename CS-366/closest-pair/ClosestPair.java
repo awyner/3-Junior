@@ -24,9 +24,9 @@ public class ClosestPair
 //		call on bruteForce and report results
 		bruteForce(p);
 
+		long startTime=System.nanoTime();
 		mergeSort(p, 0, p.length-1);
 //		call on rec_cl_pair and report results
-		long startTime=System.nanoTime();
 		System.out.println("\nDivide and Conquer: \nMinimum Distance: " + rec_cl_pair(p, 0, p.length-1));
 		long endTime=System.nanoTime();
 		System.out.println("Elapsed time: " + (endTime-startTime) + " nanoseconds");
