@@ -22,11 +22,14 @@ public class ClosestPair
 		fillPoints(p);
 //		printPoints(p);
 //		call on bruteForce and report results
-//		bruteForce(p);
+		bruteForce(p);
 
+		long startTime=System.nanoTime();
 		mergeSort(p, 0, p.length-1);
 //		call on rec_cl_pair and report results
-		rec_cl_pair(p, 0, p.length-1);
+		System.out.println("\nDivide and Conquer: \nMinimum Distance: " + rec_cl_pair(p, 0, p.length-1));
+		long endTime=System.nanoTime();
+		System.out.println("Elapsed time: " + (endTime-startTime) + " nanoseconds");
 //		printPoints(p);
 		in.close();
 	}
@@ -63,16 +66,16 @@ public class ClosestPair
 		double minDist = eucDistance(p[0], p[1]);
 
 		// Loop through each element in array p
-		for (int x = 0; x < p.length; x ++)
+		for (int x = 0; x < p.length; x ++)   // O(n)
 		{
 			// Loop through each element in array p
-			for (int y = 0; y < p.length; y ++)
+			for (int y = 0; y < p.length; y ++) // O(n^2)
 			{
 				// Check that we are not comparing the same point to itself
-				if (x != y)
+				if (x != y)      
 				{
 					// Compare distance between two points at index x and y of p
-					currDist = eucDistance(p[x], p[y]);
+					currDist = eucDistance(p[x], p[y]);  // O(1)
 					if (currDist < minDist)
 					{
 						minDist = currDist;
@@ -83,34 +86,64 @@ public class ClosestPair
 			}
 		}
 		long endTime = System.nanoTime();
-		System.out.print("Points with minimum distance: ");
+		System.out.print("\nBrute force:\nPoints with minimum distance: ");
 		System.out.print("(" + min[0].x + ", " + min[0].y + "), ");
 		System.out.println("(" + min[1].x + ", " + min[1].y + ") ");
-		System.out.println("Distance: " + minDist);
+		System.out.println("Minimum Distance: " + minDist);
 		System.out.println("Elapsed time: " + (endTime-startTime) + " nanoseconds");	
 	}
 
 	public static double rec_cl_pair(Point[] p, int i, int j)
 	{
-		i=0;
-		j=2;
-		if ((j - i) < 3) 		 // at most 3 points in p[i..j]
+		int m;
+		double line;
+		double deltaL;
+		double deltaR;
+		double delta;
+		Point[] v = new Point[p.length];
+		
+		if ((j - i) < 3) 			 // at most 3 points in p[i..j]
 		{
-			double delta;
-			printPoints(p);
-			p = sort_by_y(p, i, j);  // re-order p[i..j] by y-coordinate
-			System.out.println("##########");
-			printPoints(p);
-			// delta = eucDistance(p[i], p[i+1]);
-			/* if (j - i == 1)      // there are only two points
-			return delta
-			else
-			return min(delta, distance(p[i+1], p[i+2]), distance(p[i], p[i+2])) */
-		}
-		   
-		return 0;
-	}
 
+			p = sort_by_y(p, i, j);  // re-order p[i..j] by y-coordinate
+			delta = eucDistance(p[i], p[i+1]);
+
+			if (j - i == 1){      	 // there are only two points
+				return delta;
+			} else {
+				return Math.min(delta, Math.min(eucDistance(p[i+1], p[i+2]), eucDistance(p[i], p[i+2])));
+			}
+		}
+		m = (i + j)/2;
+		line = p[m].x; 						// line = middle of p[i..j] by x-values
+		deltaL = rec_cl_pair(p, i, m);		// deltaL = min distance of left half
+		deltaR = rec_cl_pair(p, m+1, j); 	// deltaR = min distance of right half
+		delta = Math.min(deltaL, deltaR); 	// smallest distance of the two halves
+		merge_by_y(p, i, m, j); 		// merge so that p[i..j] is sorted by y
+		
+		// Of points in p[i..j], find points in vertical strip of width 2*delta,
+ 		// centered at line, store in temp array v, and t = number of pts
+		int t = 0;
+		for (int k=i; k<j; k++) 
+		{
+			if (p[k].x > line - delta && p[k].x < line + delta)
+			{
+	//			t = t + 1;
+				v[t] = p[k];
+			}
+	 	}
+		// Find closest pair among points in array v. NOTE: Cool math shows
+		// each point in the strip only needs to be compared to, at most,
+		// the next 7 other points. Any others are further away than delta.
+		for (int k = 0; k < t-1; k++)
+		{
+			for (int s = k+1; s < Math.min(t,k+7); s++) // inner loop iterates <= 7 times
+				delta = Math.min(delta, eucDistance(v[k],v[s]));
+		}
+
+		return delta;
+	}
+	
 	private static Point[] sort_by_y(Point[] p, int i, int j) 
 	{
 		for (int y=0;y<3;y++)
@@ -138,6 +171,52 @@ public class ClosestPair
 		merge(p, left, middle, right);
 	}
 
+	public static void merge_by_y(Point p[], int i, int k, int j)
+	{
+		Point[] temp = new Point[j-i+1];
+
+		int c = 0;
+
+		int l = i;
+		int r = k+1;
+
+		while (l <= k && r <= j)
+		{
+			if (p[l].y <= p[r].y)
+			{
+				temp[c] = new Point(p[l].x, p[l].y);
+				c++;
+				l++;
+			}
+			else
+			{
+				temp[c] = new Point(p[r].x, p[r].y);
+				c++;
+				r++;
+			}
+		}
+		while (l <= k)
+		{
+			temp[c] = new Point(p[l].x, p[l].y);
+			c++;
+			l++;
+		}
+		while (r <= j)
+		{
+			temp[c] = new Point(p[r].x, p[r].y);
+			c++;
+			r++;
+		}
+
+		c = 0;
+		for (int t = i; t <= j; t++)
+		{
+			p[t].x = temp[c].x;
+			p[t].y = temp[c].y;
+			c++;
+		}
+	}
+	
 	public static void merge(Point[] p, int i, int k, int j)
 	{
 		Point[] temp = new Point[j-i+1];
