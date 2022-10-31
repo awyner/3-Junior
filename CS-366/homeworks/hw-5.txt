@@ -8,7 +8,7 @@ tsp(weight, x){
     // (weight[i][j] > 0 when vertex i and j are adjacent)
     // x is the array used to backtrack through possible tours
     // used keeps track of which vertices are used – no repeats
-   
+
     n = adj.last
     x[1] = 1 // can assume any tour of vertices
     used[1] = true // begins and ends at vertex 1
@@ -20,6 +20,9 @@ tsp(weight, x){
         used[i] = false
     if (rtsp(weight, 2 , x))
         // output solution (list vertices on tour and minimum cost)  // O(n)
+        for i = 1 to n
+          print(minTour[i] + " ")
+
 }
 
 rtsp(w, k, x) {
@@ -32,11 +35,13 @@ rtsp(w, k, x) {
             if (k == n) {
                 // found a tour; find total cost and compare to minCost
                 curSum = 0
-                for a = 1 to n   // O(n^2)
-                    curSum = curSum + weight[x[a]][x[a+1]]
-                if (min(curSum, minCost) == curSum)
-                    minCost = min(curSum, minCost)
-                    minTour = x
+                for a = 1 to n-1   // O(n)
+                    curSum += weight[x[a]][x[a+1]]
+                curSum += weight[x[n][x[1]]]
+                if (curSum < minCost)
+                    minCost += curSum
+                    for i = 1 to x.length
+                        minTour[i] = x[i]
             }
             else
                 rtsp(w, k+1, x)   // T(n-1)
@@ -52,13 +57,13 @@ path_ok(w, k, x) {
         return false
     if (k < n) // check if x[k-1] and x[k] are adjacent
     {
-        if (weight[x[k]][x[k-1]] > 0)
+        if (w[x[k]][x[k-1]] > 0)
             return true
         else
             return false
     }
     else {
-        if (weight[x[k]][1] > 0)
+        if (w[x[k]][1] > 0 && w[x[k]][x[k-1]] > 0)
             return true
         else
             return false
@@ -67,7 +72,7 @@ path_ok(w, k, x) {
 
 (b) T(n) = n * T(n-1)
          = n-1 * T(n-2)
-         = n-1 * n-2 * T(n-3) = θ(n!)
-    I decided on the recurrence for this algorithm as listed above because the recursive call, shown above to be called T(n-1) times, is found 
+         = n-1 * n-2 * T(n-3) = O(n!)
+    I decided on the recurrence for this algorithm as listed above because the recursive call, shown above to be called T(n-1) times, is found
     within a loop with a time complexity on the order of O(n). Therefore, that recursive call is made n times and T(n) is multiplied by n
     in the recurrence. As shown above, when iterated through the recurrence is equivalent to θ(n!).
