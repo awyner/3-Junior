@@ -1,0 +1,16 @@
+Security 9
+  active-active - refers to load balancers always being active
+  active-passive - primary load balancer distributes the network traffic to the most suitable server while the secondary load balancer operates in a “listening mode.”
+  agentless (NAC) - no NAC software needs to be installed on endpoints
+  agent - software installed on endpoints to gather info for NAC
+  BPDU guard - feature on a switch that creates an alert when a BPDU is received from an endpoint.
+  BPDU - Bridge Protocol Data Unit
+  east-west traffic - lateral traffic within data center
+  forward proxy - computer or application program that intercepts user requests from the internal secure network and then processes those requests on behalf of the users
+  heuristic monitoring - monitoring technique that uses an algorithm to determine if a threat exists.
+  jump box - minimally configured administrator server (either physical or virtual) within the DMZ that is used to connect two dissimilar security zones while providing tightly restricted access between them.
+  out-of-band management - Using an independent and dedicated channel to reach a device for management purposes.
+  VLAN - A technology that allows scattered users to be logically grouped together even though they may be attached to different switches.
+Forensics 10
+  Order of Volatility - A term indicating how long an item on a network lasts. RAM and running processes might last only milliseconds; data stored on hard drives can last for years.
+  zombies - another name for bots in botnet
