@@ -73,3 +73,6 @@ hierarchal trust model - assigns a single herarchy with one master CA call ed ro
 distributed trust model - multiple CAs sign digital certificates, eliminates limitations of hierarchal trust model
 secure switch - disable all ports and reenable 1 by 1, enable port security and assign specific mac addresses, limit port to 1 mac address, shut down port if violated
 stateless packet filtering weakness - treats each packet in isolation
+VLAN - group devices not in same physical area in same logical LAN
+  implements good security practices by segmenting the network
+  
