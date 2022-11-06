@@ -1,0 +1,3 @@
+SHA256 hash of project-4.docx:
+af555a1db9f07520c5fe66341d952a7782c41dc805efde678301332303e8aced
+CertUtil: -hashfile command completed successfully.
