@@ -78,3 +78,37 @@ VLAN - group devices not in same physical area in same logical LAN
 SNMP - Simple Network Management Protocol, centralize monitoring and administration of internet connected devices on a network
 Cloud Access Security Broker (CASB) - set of software tools or services that resides between enterprises' on-premises infrastructure and cloud provider's infrastructure, ensures that security policies of enterprise extend to its data in the cloud
 SWG - secure web gateway, examines incoming and outgoing traffic and performs basic url monitoring in web apps
+Wireless attack vectors
+  Bluetooth
+    short range RF
+    bluejacking - usually involves text messages, images, or sounds, sends unsolicited messages to Bluetooth-enabled devices
+      not very common anymore
+    Bluesnarfing - accesses unauthorized information from a wireless device through a bluetooth connection
+    Bluesmacking - transfer large backets to Bluetooth-enabled devices over L2CAP protocol to create DoS
+    Bluebugging - allows full access to device with discoverable Bluetooth conection
+    Car Whisperer - pair hands-free Bluetooth in car to Linux system to inject or record audio from car
+      most handsfreee car Bluetooth use 0000 or 1234 as security code
+    Bluesniper/Bluesniper gun - used for long-distance Bluetooth hacking up to 1 mile
+    BlueBorne - attack virus that spreads through air and gets into device through Bluetooth
+      targeted device does not need to be paired to atacker's device or eve be set on discoverable mode
+      zero human interaction, no Internet connection required
+  NFC
+    eavesdropping - use antenna to record communication between two NFC devices
+      mitigated by encrypting data transferred
+    data modification - data being exchanged is caputred and modified by an attacker's radio frequency.
+      mitigated by measuring strength of radio frequencies
+    relay attack - attacker holds NFC reader near victim's card and relays data over another communication channel to a second NFC reader place in proximity to original reader
+      result - copying of victim's card
+      mitigate with Faraday cages, signing of data, distance bounding protocols
+  RFID
+    reverse engineering
+    eavesdropping/relay
+    Denial of Service
+    MITM
+    Cloning
+    Virus
+  WLAN
+    rogue AP
+      unauthorized AP that allows an attacker to bypass network security configurations, sits on enterprise network
+    evil twin
+      unauthorized AP that mimics authorized AP, isn't connected to target network
