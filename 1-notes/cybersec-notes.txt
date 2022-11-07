@@ -54,7 +54,7 @@ HIDS - host intrusion detection system, can detect attack has occured
 HIPS - host intrusion prevention system, monitors endpoint activity to immediately block a malicious attack following specific rules
 EDR - endpoint detection and response, can aggregate data from multiple endpoints to a centralized database
 mobile device risks
-  tethering - mobile device w/ active internet connection can be used to hsare that connection with other mobile devices through BT or wifi
+  tethering - mobile device w/ active internet connection can be used to share that connection with other mobile devices through BT or wifi
   usb on the go
   malicious usb cable
   rogue aps/public hotspots
@@ -69,10 +69,12 @@ three types of cryptographic algorithms
   hash
   symmetric algorithms - same key is used to encrypt and decrpt file (DES, 3DES, AES, RC, Blowfish)
   asymmetric algorithms - private key/public key pair
-hierarchal trust model - assigns a single herarchy with one master CA call ed root, root signs all digital CAs with a single key
+hierarchal trust model - assigns a single hierarchy with one master CA called root, root signs all digital CAs with a single key
 distributed trust model - multiple CAs sign digital certificates, eliminates limitations of hierarchal trust model
 secure switch - disable all ports and reenable 1 by 1, enable port security and assign specific mac addresses, limit port to 1 mac address, shut down port if violated
 stateless packet filtering weakness - treats each packet in isolation
 VLAN - group devices not in same physical area in same logical LAN
   implements good security practices by segmenting the network
-  
+SNMP - Simple Network Management Protocol, centralize monitoring and administration of internet connected devices on a network
+Cloud Access Security Broker (CASB) - set of software tools or services that resides between enterprises' on-premises infrastructure and cloud provider's infrastructure, ensures that security policies of enterprise extend to its data in the cloud
+SWG - secure web gateway, examines incoming and outgoing traffic and performs basic url monitoring in web apps
