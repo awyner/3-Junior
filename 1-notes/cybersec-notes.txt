@@ -112,3 +112,13 @@ Wireless attack vectors
       unauthorized AP that allows an attacker to bypass network security configurations, sits on enterprise network
     evil twin
       unauthorized AP that mimics authorized AP, isn't connected to target network
+WEP
+  relies on shared secret known by client and AP
+  requires same key to be entered on all devices before transmission
+  secret length - IV (24 bits) + default key (40 bits) - 64 bits
+WPA2
+  personal uses PSK (preshared key)
+  requires both encryption and authentication
+WPA3
+  includes Simultaneous Authentication of Equals (SAE) which is designed to increase security at the time of the handshake when keys are exchanged
+  unique private key for each supplicant
