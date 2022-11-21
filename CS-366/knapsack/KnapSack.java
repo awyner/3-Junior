@@ -7,9 +7,12 @@ public class KnapSack
     public static int n;
     public static int c;
     public static int[] S;
+    public static int maxSize = 0;
+    public static int[] maxSubset;
     public static void main(String[] args) throws FileNotFoundException
     {
-        File f = new File("D:\\College\\3-Junior\\Semester-1\\Junior-git\\CS-366\\knapsack\\input.txt");
+        //File f = new File("D:\\College\\3-Junior\\Semester-1\\Junior-git\\CS-366\\knapsack\\input.txt");
+        File f = new File("C:\\Users\\alexw\\Documents\\classwork\\3-Junior\\CS-366\\knapsack\\input.txt");
         Scanner scan = new Scanner(f);
 
         // Parse input file into number of items n, capacity c, and array of sizes S
@@ -22,7 +25,7 @@ public class KnapSack
             S[i] = Integer.parseInt(scan.nextLine());
         }
         dynamicKnapSack();
-    //  backtrackKnapSack(S, c);
+        backtrackKnapSack();
         scan.close();
     }
 
@@ -59,29 +62,66 @@ public class KnapSack
                 }
             }
         }
+        printSolution(belong, exist);
         end = System.nanoTime();
         System.out.println("Time in nanoseconds: " + (end-start));
-        // Print solution
-        printSolution(belong, exist);
     }
 
-    public static void backtrackKnapSack(int[] S, int c)
+    public static void backtrackKnapSack()
     {
+        maxSubset = new int[n];
+        int[] subset = new int[n];
+        rbacktrackKnapSack(1, n, subset);
+        System.out.println(maxSize);
+    }
 
+    public static void rbacktrackKnapSack(int k, int l, int[] subset)
+    {
+        for (int j = 0; j <=1; j++)
+        {
+            subset[k] = j;
+            if (k == n)
+            {
+                checkSubset(subset);
+            }
+        }
+        
     }
     
+    public static void checkSubset(int[] subset)
+    {
+        int[] currSubset = new int[n];
+        int total = 0;
+
+        for (int x = 0; x < n; x++)
+        {
+            if (subset[x] == 1)
+            {
+                currSubset[x] = S[x];
+                total += S[x];
+            }
+        }
+        if (total > maxSize)
+        {
+            maxSize = total;
+            for (int x = 0; x < currSubset.length; x++){ maxSubset[x] = currSubset[x]; }
+        }
+    }
+
     public static void printSolution(boolean[][] belong, boolean[][] exists)
     {
+        int total = 0;
         int i = n;
         int j = c;
-        System.out.print("Solution: ");
+        System.out.println("Items Selected:");
         while (j > 0)
         {
             if (exists[i][j])
             {
                 if (belong[i][j])
                 {
-                    System.out.print(S[i-1] + " ");
+                    System.out.println("Item " + i + ", Size = " + S[i-1] + " ");
+                    total+=S[i-1];
                     j-= S[i-1];
                     i--;
                 } else {
@@ -91,6 +131,6 @@ public class KnapSack
                 j--;
             }
         }
-        System.out.println();
+        System.out.println("Capacity: " + c + "\nTotal space used: " + total);
     }
 }
