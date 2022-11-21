@@ -9,3 +9,4 @@ displacement - change in position - final-initial
 vectors - physical quantities that are completely described by a number/unit and a direction
 scalar - physical quantities that are completely defined by a number and a unit
 Newton = kg * m/s^2
+pressure = force / area - Pa(scal) = weight / area = density of fluid * g * h (depth below surface)
