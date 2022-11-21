@@ -4,33 +4,34 @@ import java.io.FileNotFoundException;
 
 public class KnapSack
 {
+    public static int n;
+    public static int c;
+    public static int[] S;
     public static void main(String[] args) throws FileNotFoundException
     {
         File f = new File("D:\\College\\3-Junior\\Semester-1\\Junior-git\\CS-366\\knapsack\\input.txt");
         Scanner scan = new Scanner(f);
 
         // Parse input file into number of items n, capacity c, and array of sizes S
-        int n = Integer.parseInt(scan.nextLine());
-        int c = Integer.parseInt(scan.nextLine());
-        int[] S = new int[n];
+        n = Integer.parseInt(scan.nextLine());
+        c = Integer.parseInt(scan.nextLine());
+        S = new int[n];
 
         for (int i = 0; i < n; i++)
         {
             S[i] = Integer.parseInt(scan.nextLine());
         }
-
-        dynamicKnapSack(S, c);
+        dynamicKnapSack();
     //  backtrackKnapSack(S, c);
         scan.close();
     }
 
-    public static void dynamicKnapSack(int[] S, int c)
+    public static void dynamicKnapSack()
     {
         long start = System.nanoTime();
         long end;
-        int n = S.length;
-        boolean exist[][] = new boolean[n][c];
-        boolean belong[][] = new boolean[n][c];
+        boolean exist[][] = new boolean[n+1][c+1];
+        boolean belong[][] = new boolean[n+1][c+1];
 
         exist[0][0] = true;
         for (int j = 1; j < c; j++)
@@ -38,9 +39,9 @@ public class KnapSack
             exist[0][j] = false;
         }
         
-        for (int i = 1; i < n; i++)
+        for (int i = 1; i <= n; i++)
         {
-            for (int j = 0; j < c; j++)
+            for (int j = 0; j <= c; j++)
             {
                 exist[i][j] = false;
                 if (exist[i-1][j])
@@ -48,9 +49,9 @@ public class KnapSack
                     exist[i][j] = true;
                     belong[i][j] = false;
                 }
-                else if (j - S[i] >= 0)
+                else if (j - S[i-1] >= 0)
                 {
-                    if (exist[i-1][j-S[i]])
+                    if (exist[i-1][j-S[i-1]])
                     {
                         exist[i][j] = true;
                         belong[i][j] = true;
@@ -61,14 +62,35 @@ public class KnapSack
         end = System.nanoTime();
         System.out.println("Time in nanoseconds: " + (end-start));
         // Print solution
-        for (int i = 0; i < n; i ++)
-        {
-            for (int j = 0; j < c; j++)
-            {
-                System.out.print(exist[i][j] + "\t");
-            }
-            System.out.println();
-        }
+        printSolution(belong, exist);
+    }
 
+    public static void backtrackKnapSack(int[] S, int c)
+    {
+
+    }
+    
+    public static void printSolution(boolean[][] belong, boolean[][] exists)
+    {
+        int i = n;
+        int j = c;
+        System.out.print("Solution: ");
+        while (j > 0)
+        {
+            if (exists[i][j])
+            {
+                if (belong[i][j])
+                {
+                    System.out.print(S[i-1] + " ");
+                    j-= S[i-1];
+                    i--;
+                } else {
+                    i--;
+                }
+            } else {
+                j--;
+            }
+        }
+        System.out.println();
     }
 }
