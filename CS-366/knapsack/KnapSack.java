@@ -23,37 +23,60 @@ public class KnapSack
     public static int[] maxSubset;
     public static void main(String[] args) throws FileNotFoundException
     {
-        /*File f = new File("D:\\College\\3-Junior\\Semester-1\\Junior-git\\CS-366\\knapsack\\input2.txt");
-        //File f = new File("C:\\Users\\alexw\\Documents\\classwork\\3-Junior\\CS-366\\knapsack\\input.txt");
-        Scanner scan = new Scanner(f);
+        int userChoice;
 
-        // Parse input file into number of items n, capacity c, and array of sizes S
-        n = Integer.parseInt(scan.nextLine());
-        c = Integer.parseInt(scan.nextLine());
-        S = new int[n];
-        for (int i = 0; i < n; i++)
+        Scanner userInput = new Scanner(System.in);
+        System.out.print("Knapsack Problem - Menu:\n" +
+                            "(1) Read input from file\n" +
+                            "(2) Generate random input\n "+
+                            "Enter choice: ");
+        userChoice = userInput.nextInt();
+        System.out.println();
+        if (userChoice == 1)
         {
-            S[i] = Integer.parseInt(scan.nextLine());
-        }*/
-        for (int i = 5; i <= 50; i+=5)
-        {
-            int[] vals = generateTestVals(i);
-            n = vals.length-1;
-            c = vals[0];
+            System.out.println("Enter full patch of input file:");
+            File f = new File(userInput.next());
+            Scanner scan = new Scanner(f);
+
+            // Parse input file into number of items n, capacity c, and array of sizes S
+            n = Integer.parseInt(scan.nextLine());
+            c = Integer.parseInt(scan.nextLine());
             S = new int[n];
-            for (int x = 1; x <= n; x++)       // Populate rest of testVals with random integers
+
+            for (int i = 0; i < n; i++)
             {
-                S[x-1] = vals[x];
-            }        
-            System.out.println("Capacity: " + vals[0]);
-            System.out.println("Number of items: " + n);
+                S[i] = Integer.parseInt(scan.nextLine());
+            }
             dynamicKnapSack();
             System.out.println();
             backtrackKnapSack();
-            reset();
+            scan.close();
         }
-        //scan.close();
+        else if (userChoice == 2)
+        {
+            for (int i = 5; i <= 35; i+=5)
+            {
+                int[] vals = generateTestVals(i);
+                n = vals.length-1;
+                c = vals[0];
+                S = new int[n];
+                for (int x = 1; x <= n; x++)       // Populate rest of testVals with random integers
+                {
+                    S[x-1] = vals[x];
+                }        
+                System.out.println("Capacity: " + vals[0]);
+                System.out.println("Number of items: " + n);
+                dynamicKnapSack();
+                System.out.println();
+                backtrackKnapSack();
+                reset();
+            }
+        }
+        
+        userInput.close();
     }
+
+    // Method to reset global variables between multiple runs
     public static void reset()
     {
         for (int x = 0; x < n; x ++)
@@ -65,6 +88,8 @@ public class KnapSack
         c = 0;
         maxSize = 0;
     }
+
+    // Helper method to generate given number of random test values to populate S
     public static int[] generateTestVals(int numItems)
     {
         Random gen = new Random();
@@ -76,6 +101,7 @@ public class KnapSack
         {
             testVals[x] = gen.nextInt(1000);
         }
+        // Return array of random values with index 0 being capacity
         return testVals;
     }
 
@@ -131,9 +157,8 @@ public class KnapSack
         rbacktrackKnapSack(1, subset);
 
         printSolution(maxSubset);
-        System.out.println("Capacity: " + c + "\nTotal space used: " + maxSize);
         end = System.nanoTime();
-        System.out.println("Time in nanoseconds: " + (end-start));
+        System.out.println("Time in nanoseconds: " + (end-start) + "\n-----------");
     }
 
     // Recursive function for backtracking
@@ -216,5 +241,6 @@ public class KnapSack
             if (subset[i] > 0)
                 System.out.println("Item " + (i+1) + ", Size = " + S[i] + " ");
         }
+        System.out.println("Capacity: " + c + "\nTotal space used: " + maxSize);
     }
 }
