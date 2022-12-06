@@ -1,0 +1,24 @@
+dijkstraShortestPath(start, target, predecessor, adj)
+{
+	current = target
+	counter = 0
+	distance = 0
+	while ( current != target )
+	{
+		path[counter] = current
+		ref = adj[current]
+		while (ref.vertex != predecessor[current])
+		{
+      ref.next
+		}
+    distance += ref.weight
+		current = predecessor[current]
+		counter ++
+	}
+  path[counter + 1] = start
+
+  print("Shortest path from " + start + " to " + target ": ")
+  for i = path.last downto 1
+    print(path[i])
+  print("Distance: " + distance)
+}		
