@@ -56,7 +56,7 @@ def main():
     while fs.pwd.parent:
         fs.pwd = fs.pwd.parent
     fs.pwd.search()
-    
+
     space = 30_000_000 - (70_000_000-fs.pwd.size)
     min = fs.pwd.search2([])
     min.sort()
