@@ -1,18 +1,11 @@
-class Node():
-    def __init__(self,val,next):
-        self.val = val
-        self.next = next
-    
-    
 class Monkey():
     def __init__(self, items, op, test, yes, no):
-        self.items = items # List of starting items
-        self.test = test   # Divisible by test
-        self.yes = yes     # Target monkey if yes
-        self.no = no       # Target monkey if no
-        self.op = op       # Operation 
+        self.items = items  # List of starting items
+        self.test = test    # Divisible by test
+        self.yes = yes      # Target monkey if yes
+        self.no = no        # Target monkey if no
+        self.op = op        # Operation 
         self.inspected = 0
-        # self.label = label 
 
     def runTest(self, item): 
         return (item % self.test) == 0
@@ -20,7 +13,7 @@ class Monkey():
     def operation(self,item):
         old = item
         old = eval(self.op)
-        return old 
+        return old % (13*3*7*2*19*5*11*17)
     
     def addItem(self, item):
         self.items.append(item)
@@ -31,7 +24,6 @@ class Monkey():
         return item
 
     
-
 def main():
     numMonkes = 8
     m0 = Monkey([89, 73, 66, 57, 64, 80],'old * 3',13,6,2)
@@ -43,8 +35,7 @@ def main():
     m6 = Monkey([86, 70, 60, 88, 88, 78, 74, 83],'old + 4',11,1,2)
     m7 = Monkey([81,58],'old + 5',17,3,5)
     monks = [m0,m1,m2,m3,m4,m5,m6,m7]
-    for round in range(1000):
-        print(round)
+    for round in range(10000):
         for monke in monks:
             while len(monke.items) > 0:
                 item = monke.pop()
