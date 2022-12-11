@@ -1,0 +1,29 @@
+{
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "workbench.startupEditor": "none",
+    "window.restoreWindows": "none",
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 10,
+    "workbench.colorTheme": "bird",
+    "files.associations": {
+        "grammar": "java"
+    },
+    "terminal.integrated.copyOnSelection": true,
+    "terminal.integrated.fontWeight": "normal",
+    "workbench.colorCustomizations": {
+        "terminalCursor.foreground": "#9b563d",
+    },
+    "editor.acceptSuggestionOnEnter": "off",
+    "editor.semanticTokenColorCustomizations": {
+    
+    },
+    "terminal.integrated.enableMultiLinePasteWarning": false,
+    "editor.rulers": [
+        80
+    ],
+    "editor.minimap.enabled": false,
+    "editor.parameterHints.enabled": false,
+    "editor.codeActionsOnSave": {
+    
+    },
+}
