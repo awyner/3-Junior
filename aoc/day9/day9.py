@@ -2,10 +2,8 @@ WIDTH = 30
 
 def main():
     grid = [[0] * WIDTH for x in range(WIDTH)]
-    # x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,y1,y2,y3,y4,y5,y6,y7,y8,y9,y10 = WIDTH//2, WIDTH//2, WIDTH//2, WIDTH//2,WIDTH//2,WIDTH//2,WIDTH//2,WIDTH//2,WIDTH//2,WIDTH//2,WIDTH//2,WIDTH//2,WIDTH//2,WIDTH//2,WIDTH//2,WIDTH//2,WIDTH//2,WIDTH//2,WIDTH//2,WIDTH//2
-    x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,y1,y2,y3,y4,y5,y6,y7,y8,y9,y10 = 15,15,15,15,15,15,15,15,15,15,11,11,11,11,11,11,11,11,11,11
-    coords = [[x1,y1],[x2,y2],[x3,y3],[x4,y4],[x5,y5],[x6,y6],[x7,y7],[x8,y8],[x9,y9],[x10,y10]]
-    grid[x2][y2] = 1
+    coords = [[15,11],[15,11],[15,11],[15,11],[15,11],[15,11],[15,11],[15,11],[15,11],[15,11]]
+    grid[15][11] = 1
     with open("day9\\input2.txt") as f:
         for line in f:
             line = line.strip().split()
@@ -17,10 +15,9 @@ def main():
                         for a in range(9):
                             head = coords[a]
                             tail = coords[a+1]
-                            if checkDiag(head[0],tail[0],head[1],tail[1]):
-                                head[0],tail[0],head[1],tail[1] = fixDiag(head[0],tail[0],head[1],tail[1])
-                            elif checkY(head[1], tail[1]):
-                                tail[1]+=1
+                            head,tail = checkDiag(head,tail)
+                            head[1], tail[1] = check(head[1],tail[1])
+                            head[0], tail[0] = check(head[0],tail[0])
                             if a == 8:
                                 grid[tail[0]][tail[1]] = 1
                 case 'L':
@@ -29,10 +26,9 @@ def main():
                         for a in range(9):
                             head = coords[a]
                             tail = coords[a+1]
-                            if checkDiag(head[0],tail[0],head[1],tail[1]):
-                                head[0],tail[0],head[1],tail[1] = fixDiag(head[0],tail[0],head[1],tail[1])
-                            elif checkY(head[1],tail[1]):
-                                tail[1]-=1
+                            head,tail = checkDiag(head,tail)
+                            head[1], tail[1] = check(head[1],tail[1])
+                            head[0], tail[0] = check(head[0],tail[0])
                             if a == 8:
                                 grid[tail[0]][tail[1]] = 1
                 case 'U':
@@ -41,10 +37,9 @@ def main():
                         for a in range(9):
                             head = coords[a]
                             tail = coords[a+1]
-                            if checkDiag(head[0],tail[0],head[1],tail[1]):
-                                head[0],tail[0],head[1],tail[1] = fixDiag(head[0],tail[0],head[1],tail[1])
-                            elif checkX(head[0],tail[0]):
-                                tail[0]-=1
+                            head,tail = checkDiag(head,tail)
+                            head[1], tail[1] = check(head[1],tail[1])
+                            head[0], tail[0] = check(head[0],tail[0])
                             if a == 8:
                                 grid[tail[0]][tail[1]] = 1
                 case 'D':
@@ -53,13 +48,12 @@ def main():
                         for a in range(9):
                             head = coords[a]
                             tail = coords[a+1]
-                            if checkDiag(head[0],tail[0],head[1],tail[1]):
-                                head[0],tail[0],head[1],tail[1] = fixDiag(head[0],tail[0],head[1],tail[1])
-                            elif checkX(head[0],tail[0]):
-                                tail[0]+=1
+                            head,tail = checkDiag(head,tail)
+                            head[1], tail[1] = check(head[1],tail[1])
+                            head[0], tail[0] = check(head[0],tail[0])
                             if a == 8:
                                 grid[tail[0]][tail[1]] = 1
-            # printGrid(grid)
+            printGrid(grid)
             # print(coords)
                 
     count = 0
@@ -71,35 +65,24 @@ def main():
         # print()
     print(count)
 
-def checkY(y1, y2):
-    return abs(y1-y2) > 1
+def check(a, b):
+    if a - b > 1:
+        b +=1
+    if b - a > 1:
+        b -=1
+    return a, b
 
-def checkX(x1, x2):
-    return abs(x1-x2) > 1
-
-def checkDiag(x1, x2, y1, y2):
-    if checkX(x1, x2) and abs(y1-y2) > 0:
-        return True
-    if abs(x1-x2) > 0 and checkY(y1, y2):
-        return True
-    return False
-
-def fixDiag(x1,x2,y1,y2):
-    if x1 > x2:
-        x2+=1
-    else:
-        x2-=1
-    if y1 > y2:
-        y2+=1
-    else:
-        y2-=1
-    return x1, x2, y1, y2
+def checkDiag(coords1, coords2):
+    coords1[0], coords2[0] = check(coords1[0], coords2[0])
+    coords1[1], coords2[1] = check(coords1[1], coords2[1])
+    return coords1, coords2
 
 def printGrid(grid):
     for x in range(WIDTH):
         for y in range(WIDTH):
             print(grid[x][y], end = ' ')
         print()
+    print()
             
                 
 
