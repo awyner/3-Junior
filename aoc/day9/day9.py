@@ -1,10 +1,13 @@
-WIDTH = 30
+# WIDTH = 30
+WIDTH = 1_000
 
 def main():
     grid = [[0] * WIDTH for x in range(WIDTH)]
-    coords = [[15,11],[15,11],[15,11],[15,11],[15,11],[15,11],[15,11],[15,11],[15,11],[15,11]]
-    grid[15][11] = 1
-    with open("day9\\input2.txt") as f:
+    # coords = [[15,11],[15,11],[15,11],[15,11],[15,11],[15,11],[15,11],[15,11],[15,11],[15,11]]
+    coords = [[WIDTH//2,WIDTH//2], [WIDTH//2,WIDTH//2], [WIDTH//2,WIDTH//2], [WIDTH//2,WIDTH//2], [WIDTH//2,WIDTH//2], [WIDTH//2,WIDTH//2], [WIDTH//2,WIDTH//2], [WIDTH//2,WIDTH//2], [WIDTH//2,WIDTH//2], [WIDTH//2,WIDTH//2]]
+    # grid[15][11] = 1
+    grid[coords[0][0]][coords[0][1]] = 1
+    with open("day9\\input.txt") as f:
         for line in f:
             line = line.strip().split()
             line[1] = int(line[1])
@@ -53,7 +56,7 @@ def main():
                             head[0], tail[0] = check(head[0],tail[0])
                             if a == 8:
                                 grid[tail[0]][tail[1]] = 1
-            printGrid(grid)
+            #printGrid(grid)
             # print(coords)
                 
     count = 0
@@ -61,8 +64,8 @@ def main():
         for y in range(WIDTH):
             if grid[x][y]: 
                 count += grid[x][y]
-            # print(grid[x][y], end = ' ')
-        # print()
+            print(grid[x][y], end = ' ')
+        print()
     print(count)
 
 def check(a, b):
@@ -73,8 +76,32 @@ def check(a, b):
     return a, b
 
 def checkDiag(coords1, coords2):
-    coords1[0], coords2[0] = check(coords1[0], coords2[0])
-    coords1[1], coords2[1] = check(coords1[1], coords2[1])
+    x1,y1,x2,y2 = coords1[0],coords1[1],coords2[0],coords2[1]
+    if x1 - x2 >= 1 and y1 - y2 >= 2:
+        x2+=1
+        y2+=1
+    elif x2 - x1 >= 1 and y1-y2 >= 2:
+        x2-=1
+        y2+=1
+    elif x1-x2 >= 1 and y2-y1 >= 2:
+        x2+=1
+        y2-=1
+    elif x2-x1 >= 1 and y2-y1 >= 2:
+        x2-=1
+        y2-=1
+    elif x1 - x2 >= 2 and y1 - y2 >= 1:
+        x2+=1
+        y2+=1
+    elif x2 - x1 >= 2 and y1-y2 >= 1:
+        x2-=1
+        y2+=1
+    elif x1-x2 >= 2 and y2-y1 >= 1:
+        x2+=1
+        y2-=1
+    elif x2-x1 >= 2 and y2-y1 >= 1:
+        x2-=1
+        y2-=1
+    coords2[0],coords2[1]=x2,y2
     return coords1, coords2
 
 def printGrid(grid):
