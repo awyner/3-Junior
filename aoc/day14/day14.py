@@ -1,5 +1,6 @@
 SIDE = 700
 grid = [['.'] * SIDE for x in range(SIDE)]
+dic = {}
 
 
 def main():
