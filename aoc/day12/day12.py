@@ -1,5 +1,4 @@
 import networkx as nx
-import matplotlib as plt
 
 WIDTH = 70
 HEIGHT = 41
