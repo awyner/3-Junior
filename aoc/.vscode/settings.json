@@ -5,5 +5,5 @@
     "python.linting.mypyEnabled": false,
     "python.linting.flake8Enabled": true,
     "python.linting.prospectorEnabled": false,
-    "python.linting.flake8Args": ["--ignore=E231,N802,E226,W293,N806"]
+    "python.linting.flake8Args": ["--ignore=E231,N802,E226,W293,N806,E225"]
 }
